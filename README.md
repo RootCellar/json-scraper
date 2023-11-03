@@ -1,5 +1,12 @@
 # json-scraper
 
+## Goals
+---
+
+* Scrape web pages to create a programatically easier to read database (likely MongoDB)
+* Modular, able to scrape multiple kinds of pages (tables, text + tables, etc.)
+
+
 ## Example Pages
 ---
 
