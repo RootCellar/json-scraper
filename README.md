@@ -1,5 +1,7 @@
 # json-scraper
 
+Author: Darian Marvel
+
 ## Goals
 
 * Scrape web pages to create a programmatically easier to read database (likely MongoDB)
