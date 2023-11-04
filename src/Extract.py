@@ -18,5 +18,7 @@ if __name__ == "__main__":
     scrappy.then_save_value_as_property("employee.name")
     scrappy.then_scrape_table("employee.contactInfo")
 
+    scrappy.scrape()
+
     print(scrappy.get_instructions())
 
