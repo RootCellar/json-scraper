@@ -1,14 +1,12 @@
 # json-scraper
 
 ## Goals
----
 
 * Scrape web pages to create a programmatically easier to read database (likely MongoDB)
 * Modular, able to scrape multiple kinds of pages (tables, text + tables, etc.)
 
 
 ## Approach/Ideas
----
 
 * Scraper + Crawler
   * Crawler: Go to base index page and go to each link that we want
@@ -19,7 +17,6 @@
 
 
 ## Example Pages
----
 
 https://dec.alaska.gov/DWW/
 
