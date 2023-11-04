@@ -11,6 +11,11 @@ if __name__ == "__main__":
     print("Hello, World!")
 
     # TEMPORARY FOR TESTING
+
+    crawler = Crawler.Crawler()
+    crawler.add_instruction("test-instruction")
+    crawler.crawl()
+
     scrappy = Scraper.Scraper()
     scrappy.then_skip_to_class(".something-after-the-header")
     scrappy.then_skip_to_element("p")
