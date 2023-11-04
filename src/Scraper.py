@@ -24,23 +24,26 @@ class Scraper(object):
         return self.instructions
 
     def then_skip_to_class(self, param):
-        self.instructions.append(param)
+        self.add_instruction(param)
         pass
 
-    def then_skip_to_element(self, param):
+    def add_instruction(self, param):
         self.instructions.append(param)
+
+    def then_skip_to_element(self, param):
+        self.add_instruction(param)
         pass
 
     def then_select_element(self, param):
-        self.instructions.append(param)
+        self.add_instruction(param)
         pass
 
     def then_save_value_as_property(self, param):
-        self.instructions.append(param)
+        self.add_instruction(param)
         pass
 
     def then_scrape_table(self, param):
-        self.instructions.append(param)
+        self.add_instruction(param)
         pass
 
 
