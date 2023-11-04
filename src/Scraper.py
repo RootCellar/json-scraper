@@ -14,11 +14,18 @@
 #
 # JsonData data = scrappy.scrape( HTML_Feeder_or_something )
 
+import Debug
+
+
 class Scraper(object):
 
     def __init__(self):
         self.instructions = []
         pass
+
+    @staticmethod
+    def __debug(param):
+        Debug.debug("[SCRAPER] " + param)
 
     def get_instructions(self):
         return self.instructions
@@ -28,6 +35,7 @@ class Scraper(object):
         pass
 
     def add_instruction(self, param):
+        self.__debug("Adding instruction \"" + param + "\"")
         self.instructions.append(param)
 
     def then_skip_to_element(self, param):
@@ -46,4 +54,7 @@ class Scraper(object):
         self.add_instruction(param)
         pass
 
-
+    def scrape(self):
+        self.__debug("Scraping...")
+        for instruction in self.instructions:
+            self.__debug(instruction)
