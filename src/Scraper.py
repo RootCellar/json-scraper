@@ -21,7 +21,6 @@ class Scraper(object):
 
     def __init__(self):
         self.instructions = []
-        pass
 
     @staticmethod
     def __debug(param):
