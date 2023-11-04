@@ -12,11 +12,11 @@ if __name__ == "__main__":
 
     # TEMPORARY FOR TESTING
     scrappy = Scraper.Scraper()
-    scrappy.thenSkipToClass( ".something-after-the-header" )
-    scrappy.thenSkipToElement( "p" )
-    scrappy.thenSelectElement( "p" ) # This would be the first "p" element after the one we just skipped to
-    scrappy.thenSaveValueAsProperty( "employee.name" )
-    scrappy.thenScrapeTable( "employee.contactInfo" )
+    scrappy.then_skip_to_class(".something-after-the-header")
+    scrappy.then_skip_to_element("p")
+    scrappy.then_select_element("p") # This would be the first "p" element after the one we just skipped to
+    scrappy.then_save_value_as_property("employee.name")
+    scrappy.then_scrape_table("employee.contactInfo")
 
-    print(scrappy.getInstructions())
+    print(scrappy.get_instructions())
 

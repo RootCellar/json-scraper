@@ -20,26 +20,26 @@ class Scraper(object):
         self.instructions = []
         pass
 
-    def getInstructions(self):
+    def get_instructions(self):
         return self.instructions
 
-    def thenSkipToClass(self, param):
+    def then_skip_to_class(self, param):
         self.instructions.append(param)
         pass
 
-    def thenSkipToElement(self, param):
+    def then_skip_to_element(self, param):
         self.instructions.append(param)
         pass
 
-    def thenSelectElement(self, param):
+    def then_select_element(self, param):
         self.instructions.append(param)
         pass
 
-    def thenSaveValueAsProperty(self, param):
+    def then_save_value_as_property(self, param):
         self.instructions.append(param)
         pass
 
-    def thenScrapeTable(self, param):
+    def then_scrape_table(self, param):
         self.instructions.append(param)
         pass
 
