@@ -8,7 +8,6 @@ import Scraper
 
 
 if __name__ == "__main__":
-    print("Hello, World!")
 
     # TEMPORARY FOR TESTING
 
