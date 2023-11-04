@@ -30,13 +30,13 @@ class Scraper(object):
     def get_instructions(self):
         return self.instructions
 
-    def then_skip_to_class(self, param):
-        self.add_instruction(param)
-        pass
-
     def add_instruction(self, param):
         self.__debug("Adding instruction \"" + param + "\"")
         self.instructions.append(param)
+
+    def then_skip_to_class(self, param):
+        self.add_instruction(param)
+        pass
 
     def then_skip_to_element(self, param):
         self.add_instruction(param)
