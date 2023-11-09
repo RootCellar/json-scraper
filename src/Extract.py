@@ -80,5 +80,5 @@ if __name__ == "__main__":
     print(elem.get_attribute("href"))
     print(elem.location)
 
-    #driver.close()
+    driver.close()
 
