@@ -48,8 +48,8 @@ class Scraper(object):
         if other_element.location.get('x') < element.location.get('x'):
             return True
 
-    def next_closest_element(self, elems):
-        self.__debug("next_closest_element")
+    def next_closest_element_in_list(self, elems):
+        self.__debug("next_closest_element_in_list")
         closest = self.current_element
         for elem in elems:
             if self.is_after(self.current_element, elem):
@@ -99,9 +99,9 @@ class Scraper(object):
         for instruction in self.instructions:
             self.__debug("Running instruction: " + instruction.__str__())
             if instruction[0] is InstructionType.skip_to_class:
-                self.set_current_element( self.next_closest_element(webdriver.find_elements(By.CLASS_NAME, instruction[1])) )
+                self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.CLASS_NAME, instruction[1])))
             if instruction[0] is InstructionType.skip_to_tag:
-                self.set_current_element( self.next_closest_element(webdriver.find_elements(By.TAG_NAME, instruction[1])) )
+                self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.TAG_NAME, instruction[1])))
             if instruction[0] is InstructionType.save_value_as_property:
                 self.data[ instruction[1]] = self.current_element.get_attribute('textContent')
         return self.data
