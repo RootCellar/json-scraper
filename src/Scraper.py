@@ -86,8 +86,8 @@ class Scraper(object):
         pass
 
     def set_current_element(self, element):
-        self.__debug("Current element is now at " + self.current_element.location.__str__())
         self.current_element = element
+        self.__debug("Current element is now at " + self.current_element.location.__str__())
 
     def scrape(self, webdriver):
         self.__debug("Scraping...")
