@@ -23,13 +23,17 @@ if __name__ == "__main__":
     crawler.crawl()
 
     scrappy = Scraper.Scraper()
-    scrappy.then_skip_to_element("h2")
-    scrappy.then_save_value_as_property("sub-heading")
+    scrappy.then_skip_to_element("table")
+    scrappy.then_skip_to_element("td")
+    scrappy.then_save_value_as_property("water_system_number")
+    scrappy.then_skip_to_element("td")
+    scrappy.then_skip_to_element("td")
+    scrappy.then_save_value_as_property("water_system_name")
 
     print(scrappy.get_instructions())
 
     driver = webdriver.Firefox()
-    driver.get("https://duckduckgo.com")
+    driver.get("https://dec.alaska.gov/dww/JSP/WaterSystemDetail.jsp?tinwsys_is_number=3708&tinwsys_st_code=AK&wsnumber=AK2310683")
 
     data = scrappy.scrape(driver)
     json_data = json.dumps(data)
