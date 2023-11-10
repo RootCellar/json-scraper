@@ -85,12 +85,16 @@ class Scraper(object):
         # self.add_instruction(param)
         pass
 
+    def set_current_element(self, element):
+        self.__debug("Current element is now at " + self.current_element.location.__str__())
+        self.current_element = element
+
     def scrape(self, webdriver):
         self.__debug("Scraping...")
         self.current_element = webdriver.find_element(By.TAG_NAME, "html")
         for instruction in self.instructions:
             self.__debug("Running instruction: " + instruction.__str__())
             if instruction[0] is InstructionType.skip_to_class:
-                self.current_element = self.next_closest_element(webdriver.find_elements(By.CLASS_NAME, instruction[1]))
+                self.set_current_element( self.next_closest_element(webdriver.find_elements(By.CLASS_NAME, instruction[1])) )
             if instruction[0] is InstructionType.skip_to_tag:
-                self.current_element = self.next_closest_element(webdriver.find_elements(By.TAG_NAME, instruction[1]))
+                self.set_current_element( self.next_closest_element(webdriver.find_elements(By.TAG_NAME, instruction[1])) )
