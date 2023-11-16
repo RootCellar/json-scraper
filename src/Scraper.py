@@ -85,17 +85,22 @@ class Scraper(object):
         instruction = [InstructionType.save_value_as_property, param]
         self.add_instruction(instruction)
 
-    def then_scrape_table(self, param):
-        # self.add_instruction(param)
-        pass
+    def then_go_back_to_beginning(self):
+        instruction = [InstructionType.back_to_beginning]
+        self.add_instruction(instruction)
+
 
     def set_current_element(self, element):
         self.current_element = element
         self.__debug("Current element is now at " + self.current_element.location.__str__())
 
+    def then_scrape_table(self, param):
+        # self.add_instruction(param)
+        pass
+
     def scrape(self, webdriver):
         self.__debug("Scraping...")
-        self.current_element = webdriver.find_element(By.TAG_NAME, "html")
+        self.then_go_back_to_beginning(webdriver)
         for instruction in self.instructions:
             self.__debug("Running instruction: " + instruction.__str__())
             if instruction[0] is InstructionType.skip_to_class:
@@ -104,4 +109,6 @@ class Scraper(object):
                 self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.TAG_NAME, instruction[1])))
             if instruction[0] is InstructionType.save_value_as_property:
                 self.data[ instruction[1]] = self.current_element.get_attribute('textContent')
+            if instruction[0] is InstructionType.back_to_beginning:
+                self.current_element = webdriver.find_element(By.TAG_NAME, "html")
         return self.data

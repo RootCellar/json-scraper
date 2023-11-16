@@ -30,6 +30,7 @@ if __name__ == "__main__":
     scrappy.then_skip_to_element("td")
     scrappy.then_save_value_as_property("water_system_name")
 
+    scrappy.then_go_back_to_beginning()
     print(scrappy.get_instructions())
 
     driver = webdriver.Firefox()
