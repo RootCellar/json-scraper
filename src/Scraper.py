@@ -35,7 +35,8 @@ class Scraper(object):
     def back_to_beginning(self, webdriver):
         self.current_element = webdriver.find_element(By.TAG_NAME, "html")
 
-    def is_after(self, element, other_element):
+    @staticmethod
+    def is_after(element, other_element):
         if other_element.location.get('y') < element.location.get('y'):
             return False
         if other_element.location.get('y') > element.location.get('y'):
@@ -43,7 +44,8 @@ class Scraper(object):
         if other_element.location.get('x') > element.location.get('x'):
             return True
 
-    def is_before(self, element, other_element):
+    @staticmethod
+    def is_before(element, other_element):
         if other_element.location.get('y') > element.location.get('y'):
             return False
         if other_element.location.get('y') < element.location.get('y'):
