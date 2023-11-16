@@ -145,7 +145,7 @@ class Scraper(object):
             if instruction[0] is InstructionType.skip_to_tag:
                 self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.TAG_NAME, instruction[1])))
             if instruction[0] is InstructionType.save_value_as_property:
-                self.data[ instruction[1]] = self.current_element.get_attribute('textContent')
+                self.data[instruction[1]] = self.current_element.get_attribute('textContent')
             if instruction[0] is InstructionType.back_to_beginning:
                 self.back_to_beginning(webdriver)
             if instruction[0] is InstructionType.skip_to_element_with_attribute:
