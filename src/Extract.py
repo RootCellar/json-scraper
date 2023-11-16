@@ -32,6 +32,9 @@ if __name__ == "__main__":
 
     scrappy.then_go_back_to_beginning()
     scrappy.then_skip_to_element_with_attribute("a", "title", "Violations/Enforcement Actions")
+    scrappy.then_click_element()
+
+
     print(scrappy.get_instructions())
 
     driver = webdriver.Firefox()
