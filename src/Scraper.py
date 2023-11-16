@@ -121,6 +121,10 @@ class Scraper(object):
         instruction = [InstructionType.click_element]
         self.add_instruction(instruction)
 
+    def then_go_back(self):
+        instruction = [InstructionType.goto_previous_page]
+        self.add_instruction(instruction)
+
     def set_current_element(self, element):
         self.current_element = element
         self.__debug("Current element is now at " + self.current_element.location.__str__())
@@ -146,5 +150,7 @@ class Scraper(object):
                 self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
             if instruction[0] is InstructionType.click_element:
                 self.current_element.click()
+            if instruction[0] is InstructionType.goto_previous_page:
+                webdriver.back()
 
         return self.data
