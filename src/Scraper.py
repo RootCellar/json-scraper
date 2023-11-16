@@ -32,6 +32,9 @@ class Scraper(object):
     def __debug(param):
         Debug.debug("[SCRAPER] " + param.__str__())
 
+    def back_to_beginning(self, webdriver):
+        self.current_element = webdriver.find_element(By.TAG_NAME, "html")
+
     def is_after(self, element, other_element):
         if other_element.location.get('y') < element.location.get('y'):
             return False
@@ -100,7 +103,7 @@ class Scraper(object):
 
     def scrape(self, webdriver):
         self.__debug("Scraping...")
-        self.then_go_back_to_beginning(webdriver)
+        self.back_to_beginning(webdriver)
         for instruction in self.instructions:
             self.__debug("Running instruction: " + instruction.__str__())
             if instruction[0] is InstructionType.skip_to_class:
@@ -110,5 +113,5 @@ class Scraper(object):
             if instruction[0] is InstructionType.save_value_as_property:
                 self.data[ instruction[1]] = self.current_element.get_attribute('textContent')
             if instruction[0] is InstructionType.back_to_beginning:
-                self.current_element = webdriver.find_element(By.TAG_NAME, "html")
+                self.back_to_beginning(webdriver)
         return self.data
