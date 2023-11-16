@@ -62,6 +62,27 @@ class Scraper(object):
                 closest = elem
         return closest
 
+    def next_closest_element_in_list_with_attribute_and_value(self, elems, attribute, value):
+        self.__debug("next_closest_element_in_list_with_attribute_and_value")
+        closest = self.current_element
+        for elem in elems:
+            if self.is_after(self.current_element, elem):
+                closest = elem
+
+        if attribute is None and value is None:
+            for elem in elems:
+                if self.is_after(self.current_element, elem) and self.is_before(closest, elem):
+                    closest = elem
+        else:
+            for elem in elems:
+                if self.is_after(self.current_element, elem) and self.is_before(closest, elem) and elem.get_attribute(attribute) == value:
+                    closest = elem
+
+            if closest.get_attribute(attribute) != value:
+                # Didn't really find a match - set back to current element before return
+                closest = self.current_element
+        return closest
+
     def get_instructions(self):
         return self.instructions
 
@@ -92,6 +113,9 @@ class Scraper(object):
         instruction = [InstructionType.back_to_beginning]
         self.add_instruction(instruction)
 
+    def then_skip_to_element_with_attribute(self, tag, attribute, value):
+        instruction = [InstructionType.skip_to_element_with_attribute, tag, attribute, value]
+        self.add_instruction(instruction)
 
     def set_current_element(self, element):
         self.current_element = element
@@ -114,4 +138,6 @@ class Scraper(object):
                 self.data[ instruction[1]] = self.current_element.get_attribute('textContent')
             if instruction[0] is InstructionType.back_to_beginning:
                 self.back_to_beginning(webdriver)
+            if instruction[0] is InstructionType.skip_to_element_with_attribute:
+                self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
         return self.data
