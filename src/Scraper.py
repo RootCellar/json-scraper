@@ -71,7 +71,7 @@ class Scraper(object):
             if self.is_after(self.current_element, elem):
                 closest = elem
 
-        if attribute is None and value is None:
+        if attribute is None or value is None:
             for elem in elems:
                 if self.is_after(self.current_element, elem) and self.is_before(closest, elem):
                     closest = elem
