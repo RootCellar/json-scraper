@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # TEMPORARY FOR TESTING
 
     crawler = Crawler.Crawler()
-    crawler.add_instruction("test-instruction")
+    ScraperDefinitions.WaterSystem.setup_crawler(crawler)
     crawler.crawl()
 
     scrappy = Scraper.Scraper()
