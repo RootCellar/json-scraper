@@ -104,7 +104,10 @@ class Scraper(object):
 
     def add_instruction(self, param):
         self.__debug("Adding instruction \"" + param.__str__() + "\"")
-        self.instructions.append(param)
+        if not self.live_mode:
+            self.instructions.append(param)
+        else:
+            self.execute_instruction(param)
 
     def then_skip_to_class(self, param):
         instruction = [InstructionType.skip_to_class, param]
