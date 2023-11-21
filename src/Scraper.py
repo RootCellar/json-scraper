@@ -3,6 +3,14 @@
 #
 #
 
+import Debug
+from InstructionType import InstructionType
+
+from time import sleep
+
+from selenium.common import StaleElementReferenceException
+from selenium.webdriver.common.by import By
+
 
 # PSEUDOCODE Usage
 #
@@ -14,12 +22,6 @@
 # scrappy.thenScrapeTable( "employee.contactInfo" )
 #
 # JsonData data = scrappy.scrape( HTML_Feeder_or_something )
-
-from selenium.webdriver.common.by import By
-
-import Debug
-from InstructionType import InstructionType
-
 
 class Scraper(object):
 
