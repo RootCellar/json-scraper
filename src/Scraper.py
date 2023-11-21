@@ -135,8 +135,8 @@ class Scraper(object):
         instruction = [InstructionType.skip_to_element_with_attribute, tag, attribute, value]
         self.add_instruction(instruction)
 
-    def then_click_link(self):
-        instruction = [InstructionType.click_link]
+    def then_click_element(self):
+        instruction = [InstructionType.click_element]
         self.add_instruction(instruction)
 
     def then_go_back(self):
@@ -172,7 +172,7 @@ class Scraper(object):
             self.back_to_beginning()
         if instruction[0] is InstructionType.skip_to_element_with_attribute:
             self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(self.webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
-        if instruction[0] is InstructionType.click_link:
+        if instruction[0] is InstructionType.click_element:
             self.current_element.click()
             self.back_to_beginning()
         if instruction[0] is InstructionType.goto_previous_page:
