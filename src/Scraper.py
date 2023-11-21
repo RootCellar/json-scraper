@@ -27,6 +27,13 @@ class Scraper(object):
         self.instructions = []
         self.current_element = None
         self.data = {}
+        self.live_mode = False
+
+    def activate_live_mode(self):
+        self.live_mode = True
+
+    def deactivate_live_mode(self):
+        self.live_mode = False
 
     @staticmethod
     def __debug(param):
