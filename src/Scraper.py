@@ -139,21 +139,25 @@ class Scraper(object):
         self.__debug("Scraping...")
         self.back_to_beginning(webdriver)
         for instruction in self.instructions:
-            self.__debug("Running instruction: " + instruction.__str__())
-            if instruction[0] is InstructionType.skip_to_class:
-                self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.CLASS_NAME, instruction[1])))
-            if instruction[0] is InstructionType.skip_to_tag:
-                self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.TAG_NAME, instruction[1])))
-            if instruction[0] is InstructionType.save_value_as_property:
-                self.data[instruction[1]] = self.current_element.get_attribute('textContent')
-            if instruction[0] is InstructionType.back_to_beginning:
-                self.back_to_beginning(webdriver)
-            if instruction[0] is InstructionType.skip_to_element_with_attribute:
-                self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
-            if instruction[0] is InstructionType.click_link:
-                self.current_element.click()
-                self.back_to_beginning(webdriver)
-            if instruction[0] is InstructionType.goto_previous_page:
-                webdriver.back()
+
+            self.execute_instruction(instruction, webdriver)
 
         return self.data
+
+    def execute_instruction(self, instruction, webdriver):
+        self.__debug("Running instruction: " + instruction.__str__())
+        if instruction[0] is InstructionType.skip_to_class:
+            self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.CLASS_NAME, instruction[1])))
+        if instruction[0] is InstructionType.skip_to_tag:
+            self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.TAG_NAME, instruction[1])))
+        if instruction[0] is InstructionType.save_value_as_property:
+            self.data[instruction[1]] = self.current_element.get_attribute('textContent')
+        if instruction[0] is InstructionType.back_to_beginning:
+            self.back_to_beginning(webdriver)
+        if instruction[0] is InstructionType.skip_to_element_with_attribute:
+            self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
+        if instruction[0] is InstructionType.click_link:
+            self.current_element.click()
+            self.back_to_beginning(webdriver)
+        if instruction[0] is InstructionType.goto_previous_page:
+            webdriver.back()
