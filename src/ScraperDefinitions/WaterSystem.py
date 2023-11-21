@@ -15,3 +15,6 @@ def setup_scraper(scraper):
     scraper.then_skip_to_element_with_attribute("a", "title", "Violations/Enforcement Actions")
     scraper.then_click_element()
     scraper.then_go_back()
+
+def setup_crawler(crawler):
+    pass

@@ -5,6 +5,8 @@
 
 import Debug
 
+from CrawlerInstructionType import CrawlerInstructionType
+
 class Crawler(object):
 
     def __init__(self):
