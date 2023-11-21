@@ -14,6 +14,9 @@ import Crawler
 import Scraper
 import Debug
 
+# Definitions
+import ScraperDefinitions.WaterSystem
+
 if __name__ == "__main__":
 
     # TEMPORARY FOR TESTING
@@ -23,17 +26,7 @@ if __name__ == "__main__":
     crawler.crawl()
 
     scrappy = Scraper.Scraper()
-    scrappy.then_skip_to_element("table")
-    scrappy.then_skip_to_element("td")
-    scrappy.then_save_value_as_property("water_system_number")
-    scrappy.then_skip_to_element("td")
-    scrappy.then_skip_to_element("td")
-    scrappy.then_save_value_as_property("water_system_name")
-
-    scrappy.then_go_back_to_beginning()
-    scrappy.then_skip_to_element_with_attribute("a", "title", "Violations/Enforcement Actions")
-    scrappy.then_click_element()
-    scrappy.then_go_back()
+    ScraperDefinitions.WaterSystem.setup_scraper(scrappy)
 
 
     print(scrappy.get_instructions())
