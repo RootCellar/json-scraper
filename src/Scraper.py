@@ -28,6 +28,10 @@ class Scraper(object):
         self.current_element = None
         self.data = {}
         self.live_mode = False
+        self.webdriver = None
+
+    def set_web_driver(self, webdriver):
+        self.webdriver = webdriver
 
     def activate_live_mode(self):
         self.live_mode = True
