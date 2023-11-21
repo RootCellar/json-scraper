@@ -43,8 +43,8 @@ class Scraper(object):
     def __debug(param):
         Debug.debug("[SCRAPER] " + param.__str__())
 
-    def back_to_beginning(self, webdriver):
-        self.current_element = webdriver.find_element(By.TAG_NAME, "html")
+    def back_to_beginning(self):
+        self.current_element = self.webdriver.find_element(By.TAG_NAME, "html")
 
     @staticmethod
     def is_after(element, other_element):
@@ -146,29 +146,29 @@ class Scraper(object):
         # self.add_instruction(param)
         pass
 
-    def scrape(self, webdriver):
+    def scrape(self):
         self.__debug("Scraping...")
-        self.back_to_beginning(webdriver)
+        self.back_to_beginning()
         for instruction in self.instructions:
 
-            self.execute_instruction(instruction, webdriver)
+            self.execute_instruction(instruction)
 
         return self.data
 
-    def execute_instruction(self, instruction, webdriver):
+    def execute_instruction(self, instruction):
         self.__debug("Running instruction: " + instruction.__str__())
         if instruction[0] is InstructionType.skip_to_class:
-            self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.CLASS_NAME, instruction[1])))
+            self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.CLASS_NAME, instruction[1])))
         if instruction[0] is InstructionType.skip_to_tag:
-            self.set_current_element(self.next_closest_element_in_list(webdriver.find_elements(By.TAG_NAME, instruction[1])))
+            self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.TAG_NAME, instruction[1])))
         if instruction[0] is InstructionType.save_value_as_property:
             self.data[instruction[1]] = self.current_element.get_attribute('textContent')
         if instruction[0] is InstructionType.back_to_beginning:
-            self.back_to_beginning(webdriver)
+            self.back_to_beginning()
         if instruction[0] is InstructionType.skip_to_element_with_attribute:
-            self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
+            self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(self.webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
         if instruction[0] is InstructionType.click_link:
             self.current_element.click()
-            self.back_to_beginning(webdriver)
+            self.back_to_beginning()
         if instruction[0] is InstructionType.goto_previous_page:
-            webdriver.back()
+            self.webdriver.back()

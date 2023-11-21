@@ -41,7 +41,8 @@ if __name__ == "__main__":
     driver = webdriver.Firefox()
     driver.get("https://dec.alaska.gov/dww/JSP/WaterSystemDetail.jsp?tinwsys_is_number=3708&tinwsys_st_code=AK&wsnumber=AK2310683")
 
-    data = scrappy.scrape(driver)
+    scrappy.set_web_driver(driver)
+    data = scrappy.scrape()
     json_data = json.dumps(data)
     print(json_data)
 
