@@ -5,7 +5,7 @@
 
 from enum import Enum
 
-class InstructionType(Enum):
+class ScraperInstructionType(Enum):
     skip_to_tag = 1
     skip_to_class = 2
     save_value_as_property = 3

@@ -4,7 +4,7 @@
 #
 
 import Debug
-from InstructionType import InstructionType
+from ScraperInstructionType import ScraperInstructionType
 
 from time import sleep
 
@@ -112,11 +112,11 @@ class Scraper(object):
             self.execute_instruction(param)
 
     def then_skip_to_class(self, param):
-        instruction = [InstructionType.skip_to_class, param]
+        instruction = [ScraperInstructionType.skip_to_class, param]
         self.add_instruction(instruction)
 
     def then_skip_to_element(self, param):
-        instruction = [InstructionType.skip_to_tag, param]
+        instruction = [ScraperInstructionType.skip_to_tag, param]
         self.add_instruction(instruction)
 
     def then_select_element(self, param):
@@ -124,23 +124,23 @@ class Scraper(object):
         pass
 
     def then_save_value_as_property(self, param):
-        instruction = [InstructionType.save_value_as_property, param]
+        instruction = [ScraperInstructionType.save_value_as_property, param]
         self.add_instruction(instruction)
 
     def then_go_back_to_beginning(self):
-        instruction = [InstructionType.back_to_beginning]
+        instruction = [ScraperInstructionType.back_to_beginning]
         self.add_instruction(instruction)
 
     def then_skip_to_element_with_attribute(self, tag, attribute, value):
-        instruction = [InstructionType.skip_to_element_with_attribute, tag, attribute, value]
+        instruction = [ScraperInstructionType.skip_to_element_with_attribute, tag, attribute, value]
         self.add_instruction(instruction)
 
     def then_click_element(self):
-        instruction = [InstructionType.click_element]
+        instruction = [ScraperInstructionType.click_element]
         self.add_instruction(instruction)
 
     def then_go_back(self):
-        instruction = [InstructionType.goto_previous_page]
+        instruction = [ScraperInstructionType.goto_previous_page]
         self.add_instruction(instruction)
 
     def set_current_element(self, element):
@@ -162,18 +162,18 @@ class Scraper(object):
 
     def execute_instruction(self, instruction):
         self.__debug("Running instruction: " + instruction.__str__())
-        if instruction[0] is InstructionType.skip_to_class:
+        if instruction[0] is ScraperInstructionType.skip_to_class:
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.CLASS_NAME, instruction[1])))
-        if instruction[0] is InstructionType.skip_to_tag:
+        if instruction[0] is ScraperInstructionType.skip_to_tag:
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.TAG_NAME, instruction[1])))
-        if instruction[0] is InstructionType.save_value_as_property:
+        if instruction[0] is ScraperInstructionType.save_value_as_property:
             self.data[instruction[1]] = self.current_element.get_attribute('textContent')
-        if instruction[0] is InstructionType.back_to_beginning:
+        if instruction[0] is ScraperInstructionType.back_to_beginning:
             self.back_to_beginning()
-        if instruction[0] is InstructionType.skip_to_element_with_attribute:
+        if instruction[0] is ScraperInstructionType.skip_to_element_with_attribute:
             self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(self.webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
-        if instruction[0] is InstructionType.click_element:
+        if instruction[0] is ScraperInstructionType.click_element:
             self.current_element.click()
             self.back_to_beginning()
-        if instruction[0] is InstructionType.goto_previous_page:
+        if instruction[0] is ScraperInstructionType.goto_previous_page:
             self.webdriver.back()
