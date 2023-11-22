@@ -15,8 +15,7 @@ if __name__ == "__main__":
     # Instruct Crawler on how to crawl from base page
     # (When the crawler is finished)
     # crawler = Crawler.Crawler()
-    # ScraperDefinitions.WaterSystem.setup_crawler(crawler)
-    # crawler.crawl()
+    # < crawler instructions... >
 
     # Create Scraper and specify how to grab the data of interest
     scrappy = Scraper.Scraper()
