@@ -2,6 +2,10 @@
 
 Author: Darian Marvel
 
+## Getting Started
+
+Look at src/Example.py for example usage.
+
 ## Goals
 
 * Scrape web pages to create a programmatically easier to read database (likely MongoDB)
