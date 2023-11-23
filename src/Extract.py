@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     crawler = Crawler.Crawler()
     ScraperDefinitions.WaterSystem.setup_crawler(crawler)
-    crawler.crawl()
+    crawler.crawl_and_scrape()
 
     scrappy = Scraper.Scraper()
     ScraperDefinitions.WaterSystem.setup_scraper(scrappy)
