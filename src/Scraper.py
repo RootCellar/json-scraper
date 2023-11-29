@@ -154,6 +154,7 @@ class Scraper(object):
     def scrape(self):
         self.__debug("Scraping...")
         self.back_to_beginning()
+        self.data = {}
         for instruction in self.instructions:
 
             self.execute_instruction(instruction)
