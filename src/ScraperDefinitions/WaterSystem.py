@@ -17,4 +17,6 @@ def setup_scraper(scraper):
     scraper.then_go_back()
 
 def setup_crawler(crawler):
-    pass
+    crawler.then_skip_to_element("tr")
+    crawler.then_skip_to_element("a")
+    crawler.then_click_element()
