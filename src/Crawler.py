@@ -113,7 +113,7 @@ class Crawler(object):
         return self.instructions
 
     def add_instruction(self, param):
-        self.__debug("Adding instruction \"" + param + "\"")
+        self.__debug("Adding instruction \"" + param.__str__() + "\"")
         self.instructions.append(param)
 
     def crawl_and_scrape(self):
