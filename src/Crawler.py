@@ -85,6 +85,30 @@ class Crawler(object):
                 closest = self.current_element
         return closest
 
+    def then_skip_to_class(self, param):
+        instruction = [CrawlerInstructionType.skip_to_class, param]
+        self.add_instruction(instruction)
+
+    def then_skip_to_element(self, param):
+        instruction = [CrawlerInstructionType.skip_to_tag, param]
+        self.add_instruction(instruction)
+
+    def then_skip_to_element_with_attribute(self, tag, attribute, value):
+        instruction = [CrawlerInstructionType.skip_to_element_with_attribute, tag, attribute, value]
+        self.add_instruction(instruction)
+
+    def then_click_element(self):
+        instruction = [CrawlerInstructionType.click_element]
+        self.add_instruction(instruction)
+
+    def then_go_back(self):
+        instruction = [CrawlerInstructionType.goto_previous_page]
+        self.add_instruction(instruction)
+
+    def set_current_element(self, element):
+        self.current_element = element
+        self.__debug("Current element is now at " + self.current_element.location.__str__())
+
     def get_instructions(self):
         return self.instructions
 
