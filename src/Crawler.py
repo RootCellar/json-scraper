@@ -15,6 +15,7 @@ class Crawler(object):
     def __init__(self):
         self.instructions = []
         self.current_element = None
+        self.last_selected_element = self.current_element
         self.data = []
         self.live_mode = False
         self.webdriver = None
@@ -123,4 +124,30 @@ class Crawler(object):
         num_scraped = 0
 
     def execute_instruction(self, instruction):
-        pass
+        self.set_last_selected_element()
+        if instruction[0] is CrawlerInstructionType.click_element:
+            self.current_element.click()
+            self.back_to_beginning()
+        if instruction[0] is CrawlerInstructionType.skip_to_class:
+            self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.CLASS_NAME, instruction[1])))
+            if not self.did_selected_element_change():
+                return True
+        if instruction[0] is CrawlerInstructionType.skip_to_tag:
+            self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.TAG_NAME, instruction[1])))
+            if not self.did_selected_element_change():
+                return True
+        if instruction[0] is CrawlerInstructionType.skip_to_element_with_attribute:
+            self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(self.webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
+            if not self.did_selected_element_change():
+                return True
+        # if instruction[0] is CrawlerInstructionType.goto_previous_page:
+        #     self.webdriver.back()
+        return None
+
+    def set_last_selected_element(self):
+        self.last_selected_element = self.current_element
+
+    def did_selected_element_change(self):
+        if self.last_selected_element is not self.current_element:
+            return True
+        return False
