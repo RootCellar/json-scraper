@@ -116,10 +116,11 @@ class Crawler(object):
         self.__debug("Adding instruction \"" + param.__str__() + "\"")
         self.instructions.append(param)
 
-    def crawl_and_scrape(self):
+    def crawl_and_scrape(self, scraper):
         self.__debug("Crawling...")
-        for instruction in self.instructions:
-            self.execute_instruction(instruction)
+        self.back_to_beginning()
+        self.data = []
+        num_scraped = 0
 
     def execute_instruction(self, instruction):
         pass
