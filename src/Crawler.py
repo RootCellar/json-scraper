@@ -123,6 +123,23 @@ class Crawler(object):
         self.data = []
         num_scraped = 0
 
+        while True:
+            for instruction in self.instructions:
+                should_stop = self.execute_instruction(instruction)
+
+                if should_stop is not None and should_stop is True:
+                    return self.data
+
+            scraper_data = scraper.scrape()
+            self.data.append(scraper_data)
+            self.webdriver.back()
+            self.back_to_beginning()
+            num_scraped = num_scraped + 1
+            for i in range(num_scraped):
+                for instruction in self.instructions:
+                    if instruction[0] is not CrawlerInstructionType.click_element:
+                        self.execute_instruction(instruction)
+
     def execute_instruction(self, instruction):
         self.set_last_selected_element()
         if instruction[0] is CrawlerInstructionType.click_element:
