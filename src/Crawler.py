@@ -15,7 +15,7 @@ class Crawler(object):
     def __init__(self):
         self.instructions = []
         self.current_element = None
-        self.data = {}
+        self.data = []
         self.live_mode = False
         self.webdriver = None
 
