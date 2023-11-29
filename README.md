@@ -2,6 +2,14 @@
 
 Author: Darian Marvel
 
+Status: 
+Working on optimizing the crawler, this may require a 
+change in how the crawler is instructed by the user.
+
+- Scraper works
+- Crawler works
+  - Crawler is EXTREMELY slow
+
 ## Getting Started
 
 Look at src/Example.py for example usage.
