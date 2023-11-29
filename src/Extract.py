@@ -48,9 +48,8 @@ if __name__ == "__main__":
     # data = scrappy.scrape()
     data = crawler.crawl_and_scrape(scrappy)
 
-    for water_system in data:
-        json_data = json.dumps(data)
-        print(json_data)
+    json_data = json.dumps(data)
+    print(json_data)
 
     driver.close()
 
