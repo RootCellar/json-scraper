@@ -75,7 +75,7 @@ class Crawler(object):
             except:
                 continue
 
-            for i in range(2):
+            for j in range(2):
                 try:
                     elem.click()
                     break
