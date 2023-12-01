@@ -177,6 +177,9 @@ class Crawler(object):
         #     self.webdriver.back()
         return None
 
+    def create_element_selector(self, i):
+        return self.parent_element + " " + self.item_element + ":nth-of-type(" + i.__str__() + ") " + self.sub_item_element
+
     def set_last_selected_element(self):
         self.last_selected_element = self.current_element
 
