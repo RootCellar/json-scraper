@@ -81,22 +81,24 @@ class Scraper(object):
     def next_closest_element_in_list_with_attribute_and_value(self, elems, attribute, value):
         self.__debug("next_closest_element_in_list_with_attribute_and_value")
         closest = self.current_element
-        for elem in elems:
-            if self.is_after(self.current_element, elem):
-                closest = elem
 
         if attribute is None or value is None:
             for elem in elems:
-                if self.is_after(self.current_element, elem) and self.is_before(closest, elem):
+                if closest is self.current_element and self.is_after(self.current_element, elem):
+                    closest = elem
+                elif self.is_after(self.current_element, elem) and self.is_before(closest, elem):
                     closest = elem
         else:
             for elem in elems:
-                if self.is_after(self.current_element, elem) and self.is_before(closest, elem) and elem.get_attribute(attribute) == value:
+                if closest is self.current_element and self.is_after(self.current_element, elem) and elem.get_attribute(attribute) == value:
+                    closest = elem
+                elif self.is_after(self.current_element, elem) and self.is_before(closest, elem) and elem.get_attribute(attribute) == value:
                     closest = elem
 
-            if closest.get_attribute(attribute) != value:
+            if closest is self.current_element or closest.get_attribute(attribute) != value:
                 # Didn't really find a match - set back to current element before return
                 closest = self.current_element
+
         return closest
 
     def get_instructions(self):
