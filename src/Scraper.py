@@ -170,7 +170,7 @@ class Scraper(object):
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.TAG_NAME, instruction[1])))
 
         if instruction[0] is ScraperInstructionType.save_value_as_property:
-            self.data[instruction[1]] = self.current_element.get_attribute('textContent')
+            self.data[instruction[1]] = self.current_element.get_attribute('innerText')
 
         if instruction[0] is ScraperInstructionType.back_to_beginning:
             self.back_to_beginning()
