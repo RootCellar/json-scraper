@@ -4,6 +4,7 @@
 #
 
 from time import sleep
+from selenium.common import ElementNotInteractableException
 from selenium.webdriver.common.by import By
 
 import Debug
@@ -74,7 +75,15 @@ class Crawler(object):
             except:
                 continue
 
-            elem.click()
+            for i in range(2):
+                try:
+                    elem.click()
+                    break
+                except ElementNotInteractableException:
+                    # Sleep for a moment and try again
+                    # This exception can be thrown if the web browser doesn't
+                    # scroll down to the element fast enough
+                    sleep(0.5)
 
             scraper_data = scraper.scrape()
             self.data.append(scraper_data)
