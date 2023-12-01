@@ -12,14 +12,14 @@ import json
 import Crawler
 import Scraper
 
+# Definitions
+import ScraperDefinitions.WaterSystem
+
 if __name__ == "__main__":
 
     # Instruct Crawler on how to crawl from base page
     crawler = Crawler.Crawler()
-
-    crawler.set_parent_element("table")
-    crawler.set_item_element("tr")
-    crawler.set_sub_item_element("a")
+    ScraperDefinitions.WaterSystem.setup_crawler(crawler)
 
     # Set max number of items, so we don't go overboard
     # just to do an example
@@ -27,22 +27,13 @@ if __name__ == "__main__":
 
     # Create Scraper and specify how to grab the data of interest
     scrappy = Scraper.Scraper()
-
-    scrappy.then_skip_to_element("table")
-    scrappy.then_skip_to_element("td")
-    scrappy.then_save_value_as_property("water_system_number")
-    scrappy.then_skip_to_element("td")
-    scrappy.then_skip_to_element("td")
-    scrappy.then_save_value_as_property("water_system_name")
-
-    scrappy.then_go_back_to_beginning()
-    scrappy.then_skip_to_element_with_attribute("a", "title", "Violations/Enforcement Actions")
-    scrappy.then_click_element()
-    scrappy.then_go_back()
+    ScraperDefinitions.WaterSystem.setup_scraper(scrappy)
 
     # Create a web driver and navigate to the base page or a specific page
+    # You may have to change from Firefox to something else if you don't have it
     driver = webdriver.Firefox()
     driver.get("https://dec.alaska.gov/dww/index.jsp")
+
 
     # Use a temporary scraper in live mode to click the search button
     # Is this a little hacky? Yes. Does it work? It sure does.
