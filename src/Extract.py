@@ -47,6 +47,7 @@ if __name__ == "__main__":
 
     scrappy.set_web_driver(driver)
     crawler.set_web_driver(driver)
+    crawler.set_max_items(50)
     # data = scrappy.scrape()
     data = crawler.crawl_and_scrape(scrappy)
 
