@@ -122,10 +122,6 @@ class Scraper(object):
         instruction = [ScraperInstructionType.skip_to_tag, param]
         self.add_instruction(instruction)
 
-    def then_select_element(self, param):
-        # self.add_instruction(param)
-        pass
-
     def then_save_value_as_property(self, param):
         instruction = [ScraperInstructionType.save_value_as_property, param]
         self.add_instruction(instruction)
