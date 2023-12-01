@@ -15,9 +15,15 @@ import Scraper
 if __name__ == "__main__":
 
     # Instruct Crawler on how to crawl from base page
-    # (When the crawler is finished)
-    # crawler = Crawler.Crawler()
-    # < crawler instructions... >
+    crawler = Crawler.Crawler()
+
+    crawler.set_parent_element("table")
+    crawler.set_item_element("tr")
+    crawler.set_sub_item_element("a")
+
+    # Set max number of items, so we don't go overboard
+    # just to do an example
+    crawler.set_max_items(5)
 
     # Create Scraper and specify how to grab the data of interest
     scrappy = Scraper.Scraper()
@@ -36,15 +42,23 @@ if __name__ == "__main__":
 
     # Create a web driver and navigate to the base page or a specific page
     driver = webdriver.Firefox()
-    driver.get("https://dec.alaska.gov/dww/JSP/WaterSystemDetail.jsp?tinwsys_is_number=3708&tinwsys_st_code=AK&wsnumber=AK2310683")
+    driver.get("https://dec.alaska.gov/dww/index.jsp")
 
-    # Give the web driver to the scraper and scrape!
+    # Use a temporary scraper in live mode to click the search button
+    # Is this a little hacky? Yes. Does it work? It sure does.
+
+    temp_scraper = Scraper.Scraper()
+    temp_scraper.activate_live_mode()
+    temp_scraper.set_web_driver(driver)
+    temp_scraper.then_go_back_to_beginning()
+    temp_scraper.then_skip_to_element_with_attribute("input", "value", "Search For Water Systems")
+    temp_scraper.current_element.click()
+
+
+    # Give the web driver to the crawler + scraper and scrape!
     scrappy.set_web_driver(driver)
-    data = scrappy.scrape()
-
-    # Eventually, the lines just above will look more like this:
-    # crawler.set_web_driver(driver)
-    # data = crawler.crawl_and_scrape()
+    crawler.set_web_driver(driver)
+    data = crawler.crawl_and_scrape(scrappy)
 
     # Close web browser
     driver.close()
