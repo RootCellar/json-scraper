@@ -24,6 +24,6 @@ def setup_crawler(crawler):
 
     # The elements that will be looped over
     crawler.set_item_element("tr")
-    
+
     # Any sub-element(s) that have to be clicked on
     crawler.set_sub_item_element("a")
