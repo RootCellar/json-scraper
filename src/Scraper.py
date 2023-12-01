@@ -162,21 +162,28 @@ class Scraper(object):
 
     def execute_instruction(self, instruction):
         self.__debug("Running instruction: " + instruction.__str__())
+
         if instruction[0] is ScraperInstructionType.skip_to_class:
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.CLASS_NAME, instruction[1])))
+
         if instruction[0] is ScraperInstructionType.skip_to_tag:
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.TAG_NAME, instruction[1])))
+
         if instruction[0] is ScraperInstructionType.save_value_as_property:
             self.data[instruction[1]] = self.current_element.get_attribute('textContent')
+
         if instruction[0] is ScraperInstructionType.back_to_beginning:
             self.back_to_beginning()
+
         if instruction[0] is ScraperInstructionType.skip_to_element_with_attribute:
             selector = instruction[1] + "[" + instruction[2] + "='" + instruction[3] + "']"
             self.__debug(selector)
             elements = self.webdriver.find_elements(By.CSS_SELECTOR, selector)
             self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(elements, instruction[2], instruction[3]))
+
         if instruction[0] is ScraperInstructionType.click_element:
             self.current_element.click()
             self.back_to_beginning()
+
         if instruction[0] is ScraperInstructionType.goto_previous_page:
             self.webdriver.back()
