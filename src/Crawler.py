@@ -20,6 +20,10 @@ class Crawler(object):
         self.live_mode = False
         self.webdriver = None
 
+        self.parent_element = None
+        self.item_element = None
+        self.sub_item_element = None
+
     def set_web_driver(self, webdriver):
         self.webdriver = webdriver
 
@@ -28,6 +32,18 @@ class Crawler(object):
 
     def deactivate_live_mode(self):
         self.live_mode = False
+
+    def set_parent_element(self, param):
+        self.parent_element = param
+        self.__debug("Set parent element selector to " + param)
+
+    def set_item_element(self, param):
+        self.item_element = param
+        self.__debug("Set item element selector to " + param)
+
+    def set_sub_item_element(self, param):
+        self.sub_item_element = param
+        self.__debug("Set sub item element selector to " + param)
 
     @staticmethod
     def __debug(param):
