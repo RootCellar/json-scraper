@@ -3,12 +3,14 @@
 Author: Darian Marvel
 
 Status: 
-Working on optimizing the crawler, this may require a 
-change in how the crawler is instructed by the user.
+Both the Crawler and the Scraper work. Working on optimizing the scraper,
+and writing additional instructions for more complicated scrape scenarios
+(tables with an unknown number of rows, for example)
 
 - Scraper works
+  - Pages with variable number of elements (tables with an unknown number of rows, for example) are currently not possible
 - Crawler works
-  - Crawler is EXTREMELY slow
+  - Should work in most cases, may not in very specific scenarios
 
 ## Getting Started
 
