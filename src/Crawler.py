@@ -66,7 +66,7 @@ class Crawler(object):
 
         for i in range(self.max_items):
 
-            selector = self.create_element_selector(i)
+            selector = self.create_selector_for_element_in_list(i)
 
             elem = None
             try:
@@ -85,7 +85,7 @@ class Crawler(object):
 
         return self.data
 
-    def create_element_selector(self, i):
+    def create_selector_for_element_in_list(self, i):
         return self.parent_element + " " + self.item_element + ":nth-of-type(" + i.__str__() + ") " + self.sub_item_element
 
     def set_last_selected_element(self):
