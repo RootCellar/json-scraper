@@ -22,6 +22,7 @@ class Crawler(object):
         self.parent_element = None
         self.item_element = None
         self.sub_item_element = None
+        self.max_items = 10
 
     def set_web_driver(self, webdriver):
         self.webdriver = webdriver
@@ -31,6 +32,9 @@ class Crawler(object):
 
     def deactivate_live_mode(self):
         self.live_mode = False
+
+    def set_max_items(self, param):
+        self.max_items = param
 
     def set_parent_element(self, param):
         self.parent_element = param
@@ -60,7 +64,7 @@ class Crawler(object):
         self.back_to_beginning()
         self.data = []
 
-        for i in range(1000):
+        for i in range(self.max_items):
 
             selector = self.create_element_selector(i)
 
