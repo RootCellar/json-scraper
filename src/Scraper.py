@@ -70,11 +70,12 @@ class Scraper(object):
         self.__debug("next_closest_element_in_list")
         closest = self.current_element
         for elem in elems:
-            if self.is_after(self.current_element, elem):
-                closest = elem
-        for elem in elems:
-            if self.is_after(self.current_element, elem) and self.is_before(closest, elem):
-                closest = elem
+            if closest is self.current_element:
+                if self.is_after(self.current_element, elem):
+                    closest = elem
+            else:
+                if self.is_after(self.current_element, elem) and self.is_before(closest, elem):
+                    closest = elem
         return closest
 
     def next_closest_element_in_list_with_attribute_and_value(self, elems, attribute, value):
