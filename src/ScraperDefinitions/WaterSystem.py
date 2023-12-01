@@ -17,10 +17,13 @@ def setup_scraper(scraper):
     scraper.then_go_back()
 
 def setup_crawler(crawler):
-    # crawler.then_skip_to_element("tr")
-    # crawler.then_skip_to_element("a")
-    # crawler.then_click_element()
 
+    # The element that holds all of the item elements we really want
+    # (table rows, etc)
     crawler.set_parent_element("table")
+
+    # The elements that will be looped over
     crawler.set_item_element("tr")
+    
+    # Any sub-element(s) that have to be clicked on
     crawler.set_sub_item_element("a")
