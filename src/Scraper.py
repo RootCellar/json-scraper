@@ -171,7 +171,10 @@ class Scraper(object):
         if instruction[0] is ScraperInstructionType.back_to_beginning:
             self.back_to_beginning()
         if instruction[0] is ScraperInstructionType.skip_to_element_with_attribute:
-            self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(self.webdriver.find_elements(By.TAG_NAME, instruction[1]), instruction[2], instruction[3]))
+            selector = instruction[1] + "[" + instruction[2] + "='" + instruction[3] + "']"
+            self.__debug(selector)
+            elements = self.webdriver.find_elements(By.CSS_SELECTOR, selector)
+            self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(elements, instruction[2], instruction[3]))
         if instruction[0] is ScraperInstructionType.click_element:
             self.current_element.click()
             self.back_to_beginning()
