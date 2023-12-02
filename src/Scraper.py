@@ -213,5 +213,7 @@ class Scraper(object):
 
         if instruction[0] is ScraperInstructionType.goto_previous_page:
             self.webdriver.back()
+            self.back_to_beginning()
+
         if instruction[0] is ScraperInstructionType.scrape_table:
             self.scrape_table(instruction[1])
