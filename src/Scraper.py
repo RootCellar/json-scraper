@@ -156,6 +156,16 @@ class Scraper(object):
         columns = header_row.find_elements(By.TAG_NAME, "th")
         names = []
         value_list = dict()
+        for column in columns:
+            names.append(column.get_attribute("innerText"))
+
+        for row in rows[1:]:
+            row_values = row.find_elements(By.TAG_NAME, "td")
+            for index, column_value in enumerate(row_values):
+                value_list[names[index]] = column_value.get_attribute("innerText")
+
+        self.data[param] = value_list
+
     def scrape(self):
         self.__debug("Scraping...")
         self.back_to_beginning()
