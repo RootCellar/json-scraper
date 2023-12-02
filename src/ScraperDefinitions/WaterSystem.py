@@ -40,8 +40,22 @@ def setup_scraper(scraper):
     scraper.then_scrape_table("water_purchases")
 
     scraper.then_go_back_to_beginning()
+
+
     scraper.then_skip_to_element_with_attribute("a", "title", "Violations/Enforcement Actions")
     scraper.then_click_element()
+    scraper.then_skip_to_element("table")
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("group_violations")
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("individual_violations")
+    scraper.then_go_back()
+
+    scraper.then_skip_to_element_with_attribute("a", "title", "Water System Facilities")
+    scraper.then_click_element()
+    scraper.then_skip_to_element("table")
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("facilities")
     scraper.then_go_back()
 
 def setup_crawler(crawler):
