@@ -75,7 +75,7 @@ class Crawler(object):
             except:
                 continue
 
-            for j in range(2):
+            for j in range(3):
                 try:
                     elem.click()
                     break
@@ -83,7 +83,7 @@ class Crawler(object):
                     # Sleep for a moment and try again
                     # This exception can be thrown if the web browser doesn't
                     # scroll down to the element fast enough
-                    sleep(0.5)
+                    sleep(0.25)
 
             scraper_data = scraper.scrape()
             self.data.append(scraper_data)
