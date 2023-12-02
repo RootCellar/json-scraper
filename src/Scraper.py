@@ -9,6 +9,7 @@ from ScraperInstructionType import ScraperInstructionType
 from time import sleep
 
 from selenium.common import StaleElementReferenceException
+from selenium.common import ElementNotInteractableException
 from selenium.webdriver.common.by import By
 
 
@@ -198,7 +199,16 @@ class Scraper(object):
             self.set_current_element(self.next_closest_element_in_list_with_attribute_and_value(elements, instruction[2], instruction[3]))
 
         if instruction[0] is ScraperInstructionType.click_element:
-            self.current_element.click()
+            for j in range(3):
+                try:
+                    self.current_element.click()
+                    break
+                except ElementNotInteractableException:
+                    # Sleep for a moment and try again
+                    # This exception can be thrown if the web browser doesn't
+                    # scroll down to the element fast enough
+                    sleep(0.25)
+
             self.back_to_beginning()
 
         if instruction[0] is ScraperInstructionType.goto_previous_page:
