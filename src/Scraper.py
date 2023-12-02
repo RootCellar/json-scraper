@@ -147,9 +147,15 @@ class Scraper(object):
         self.__debug("Current element is now at " + self.current_element.location.__str__())
 
     def then_scrape_table(self, param):
-        # self.add_instruction(param)
-        pass
+        instruction = [ScraperInstructionType.scrape_table, param]
+        self.add_instruction(instruction)
 
+    def scrape_table(self, param):
+        rows = self.current_element.find_elements(By.TAG_NAME, "tr")
+        header_row = rows[0]
+        columns = header_row.find_elements(By.TAG_NAME, "th")
+        names = []
+        value_list = dict()
     def scrape(self):
         self.__debug("Scraping...")
         self.back_to_beginning()
@@ -187,3 +193,5 @@ class Scraper(object):
 
         if instruction[0] is ScraperInstructionType.goto_previous_page:
             self.webdriver.back()
+        if instruction[0] is ScraperInstructionType.scrape_table:
+            self.scrape_table(instruction[1])
