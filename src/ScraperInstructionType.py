@@ -14,3 +14,4 @@ class ScraperInstructionType(Enum):
     skip_to_element_with_attribute = 6
     click_element = 7
     goto_previous_page = 8
+    scrape_table = 9
