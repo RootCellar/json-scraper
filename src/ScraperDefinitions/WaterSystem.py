@@ -21,6 +21,24 @@ def setup_scraper(scraper):
     scraper.then_skip_to_element("td")
     scraper.then_save_value_as_property("activity_date")
 
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("points_of_contact")
+
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("operating_data")
+
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("service_connections")
+
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("water_sources")
+
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("service_areas")
+
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("water_purchases")
+
     scraper.then_go_back_to_beginning()
     scraper.then_skip_to_element_with_attribute("a", "title", "Violations/Enforcement Actions")
     scraper.then_click_element()
