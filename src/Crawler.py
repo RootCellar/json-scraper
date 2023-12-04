@@ -69,6 +69,9 @@ class Crawler(object):
 
             selector = self.create_selector_for_element_in_list(i)
 
+
+            self.__debug(selector.__str__())
+
             elem = None
             try:
                 elem = self.webdriver.find_element(By.CSS_SELECTOR, selector)
