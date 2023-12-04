@@ -109,7 +109,7 @@ class Scraper(object):
         return self.data
 
     def add_instruction(self, param):
-        self.__debug("Adding instruction \"" + param.__str__() + "\"")
+        self.__debug("Handling instruction \"" + param.__str__() + "\"")
         if not self.live_mode:
             self.instructions.append(param)
         else:
