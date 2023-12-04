@@ -169,6 +169,8 @@ class Scraper(object):
             row_dictionary_list.append(row_dictionary)
 
         self.data[param] = row_dictionary_list
+        self.__debug(names.__str__())
+        self.__debug(row_dictionary_list.__str__())
 
     def scrape(self):
         self.__debug("Scraping...")
