@@ -82,7 +82,7 @@ def setup_scraper(scraper):
     scraper.create_function("scrape_water_assessments")
     scraper.then_save_attribute_as_property("innerText", "name")
     scraper.then_skip_to_element("table")
-    scraper.then_scrape_table("Susceptibility")
+    scraper.then_scrape_table("susceptibility")
     scraper.then_skip_to_element("table")
     scraper.then_scrape_table("contaminant_vulnerability")
     scraper.end_function()
