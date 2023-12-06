@@ -16,3 +16,4 @@ class ScraperInstructionType(Enum):
     goto_previous_page = 8
     scrape_table = 9
     run_function = 10
+    for_each = 11
