@@ -273,8 +273,8 @@ class Scraper(object):
             self.__debug(selector)
             elements = self.webdriver.find_elements(By.CSS_SELECTOR, selector)
             objects = []
-            item = dict()
             for elem in elements:
+                item = dict()
                 self.set_current_element(elem)
                 self.execute_function(instruction[4], item)
                 objects.append(item)
