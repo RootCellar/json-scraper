@@ -108,7 +108,7 @@ class Scraper(object):
     def get_data(self):
         return self.data
 
-    def add_instruction(self, param):
+    def handle_instruction(self, param):
         self.__debug("Handling instruction \"" + param.__str__() + "\"")
         if not self.live_mode:
             self.instructions.append(param)
@@ -117,31 +117,31 @@ class Scraper(object):
 
     def then_skip_to_class(self, param):
         instruction = [ScraperInstructionType.skip_to_class, param]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def then_skip_to_element(self, param):
         instruction = [ScraperInstructionType.skip_to_tag, param]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def then_save_value_as_property(self, param):
         instruction = [ScraperInstructionType.save_value_as_property, param]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def then_go_back_to_beginning(self):
         instruction = [ScraperInstructionType.back_to_beginning]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def then_skip_to_element_with_attribute(self, tag, attribute, value):
         instruction = [ScraperInstructionType.skip_to_element_with_attribute, tag, attribute, value]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def then_click_element(self):
         instruction = [ScraperInstructionType.click_element]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def then_go_back(self):
         instruction = [ScraperInstructionType.goto_previous_page]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def set_current_element(self, element):
         self.current_element = element
@@ -149,7 +149,7 @@ class Scraper(object):
 
     def then_scrape_table(self, param):
         instruction = [ScraperInstructionType.scrape_table, param]
-        self.add_instruction(instruction)
+        self.handle_instruction(instruction)
 
     def scrape_table(self, param):
         rows = self.current_element.find_elements(By.TAG_NAME, "tr")
