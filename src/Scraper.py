@@ -210,6 +210,8 @@ class Scraper(object):
     def execute_instruction(self, instruction):
         self.__debug("Running instruction: " + instruction.__str__())
 
+        time_start = time.time()
+
         if instruction[0] is ScraperInstructionType.skip_to_class:
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.CLASS_NAME, instruction[1])))
 
@@ -258,3 +260,5 @@ class Scraper(object):
                 self.__debug("Function " + instruction[1] + " executing " + instr.__str__())
                 self.execute_instruction(instr)
 
+        time_end = time.time()
+        self.__debug("Executed instruction in " + (time_end - time_start).__str__() + " seconds: " + instruction.__str__())
