@@ -3,14 +3,11 @@
 Author: Darian Marvel
 
 Status: 
-Both the Crawler and the Scraper work. Working on optimizing the scraper,
-and writing additional instructions for more complicated scrape scenarios
-(tables with an unknown number of rows, for example)
+Both the Crawler and the Scraper work. Working on implementing more instructions 
+and possible options for instructions to cover more web scraping scenarios.
 
-- Scraper works
-  - Pages with variable number of elements (tables with an unknown number of rows, for example) are currently not possible
-- Crawler works
-  - Should work in most cases, may not in very specific scenarios
+- [X] Scraper works
+- [X] Crawler works
 
 ## Getting Started
 
