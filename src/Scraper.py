@@ -176,7 +176,7 @@ class Scraper(object):
         instruction = [ScraperInstructionType.scrape_table, param]
         self.handle_instruction(instruction)
 
-    def scrape_table(self, param):
+    def scrape_table(self):
         rows = self.current_element.find_elements(By.TAG_NAME, "tr")
         header_row = rows[0]
         columns = header_row.find_elements(By.TAG_NAME, "th")
@@ -193,9 +193,9 @@ class Scraper(object):
 
             row_dictionary_list.append(row_dictionary)
 
-        self.data[param] = row_dictionary_list
         self.__debug(names.__str__())
         self.__debug(row_dictionary_list.__str__())
+        return row_dictionary_list
 
     def scrape(self):
         self.__debug("Scraping...")
@@ -258,7 +258,7 @@ class Scraper(object):
             self.back_to_beginning()
 
         if instruction[0] is ScraperInstructionType.scrape_table:
-            self.scrape_table(instruction[1])
+            self.data[instruction[1]] = self.scrape_table()
 
         if instruction[0] is ScraperInstructionType.run_function:
             self.execute_function(instruction)
