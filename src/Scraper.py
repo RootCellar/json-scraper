@@ -181,6 +181,8 @@ class Scraper(object):
 
     def scrape_table(self):
         rows = self.current_element.find_elements(By.TAG_NAME, "tr")
+        if len(rows) < 1:
+            return None
         header_row = rows[0]
         columns = header_row.find_elements(By.TAG_NAME, "th")
         names = []
