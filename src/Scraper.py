@@ -131,6 +131,9 @@ class Scraper(object):
         else:
             self.instructions.append(param)
 
+    def then_for_each(self, tag, attribute, value, function_name):
+        instruction = [ScraperInstructionType.for_each, tag, attribute, value, function_name]
+        self.handle_instruction(instruction)
 
     def then_run_function(self, param):
         instruction = [ScraperInstructionType.run_function, param]
@@ -263,5 +266,19 @@ class Scraper(object):
         if instruction[0] is ScraperInstructionType.run_function:
             self.execute_function(instruction[1], data)
 
+        if instruction[0] is ScraperInstructionType.for_each:
+            selector = instruction[1] + "[" + instruction[2] + "='" + instruction[3] + "']"
+            self.__debug(selector)
+            elements = self.webdriver.find_elements(By.CSS_SELECTOR, selector)
+            objects = []
+            item = dict()
+            for elem in elements:
+                self.set_current_element(elem)
+                self.execute_function(instruction[4], item)
+                objects.append(item)
+
+            data[instruction[4]] = objects
+
         time_end = time.time()
         self.__debug("Executed instruction in " + (time_end - time_start).__str__() + " seconds: " + instruction.__str__())
+
