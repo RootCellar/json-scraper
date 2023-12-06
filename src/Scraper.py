@@ -127,7 +127,7 @@ class Scraper(object):
         if self.function_writing is not None:
             self.functions[self.function_writing].append(param)
         elif self.live_mode:
-            self.execute_instruction(param)
+            self.execute_instruction(self.data, param)
         else:
             self.instructions.append(param)
 
@@ -203,18 +203,18 @@ class Scraper(object):
         self.data = {}
         for instruction in self.instructions:
 
-            self.execute_instruction(instruction)
+            self.execute_instruction(self.data, instruction)
 
         return self.data
 
-    def execute_function(self, name):
+    def execute_function(self, name, data):
         instructions = self.functions[name]
         self.__debug("Running function " + name)
         for instr in instructions:
             self.__debug("Function " + name + " executing " + instr.__str__())
-            self.execute_instruction(instr)
+            self.execute_instruction(data, instr)
 
-    def execute_instruction(self, instruction):
+    def execute_instruction(self, data, instruction):
         self.__debug("Running instruction: " + instruction.__str__())
 
         time_start = time.time()
@@ -226,10 +226,10 @@ class Scraper(object):
             self.set_current_element(self.next_closest_element_in_list(self.webdriver.find_elements(By.TAG_NAME, instruction[1])))
 
         if instruction[0] is ScraperInstructionType.save_value_as_property:
-            self.data[instruction[1]] = self.current_element.get_attribute('innerText')
+            data[instruction[1]] = self.current_element.get_attribute('innerText')
 
         if instruction[0] is ScraperInstructionType.save_attribute_as_property:
-            self.data[instruction[2]] = self.current_element.get_attribute(instruction[1])
+            data[instruction[2]] = self.current_element.get_attribute(instruction[1])
 
         if instruction[0] is ScraperInstructionType.back_to_beginning:
             self.back_to_beginning()
@@ -258,10 +258,10 @@ class Scraper(object):
             self.back_to_beginning()
 
         if instruction[0] is ScraperInstructionType.scrape_table:
-            self.data[instruction[1]] = self.scrape_table()
+            data[instruction[1]] = self.scrape_table()
 
         if instruction[0] is ScraperInstructionType.run_function:
-            self.execute_function(instruction[1])
+            self.execute_function(instruction[1], data)
 
         time_end = time.time()
         self.__debug("Executed instruction in " + (time_end - time_start).__str__() + " seconds: " + instruction.__str__())
