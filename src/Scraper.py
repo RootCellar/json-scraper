@@ -261,7 +261,7 @@ class Scraper(object):
             self.data[instruction[1]] = self.scrape_table()
 
         if instruction[0] is ScraperInstructionType.run_function:
-            self.execute_function(instruction)
+            self.execute_function(instruction[1])
 
         time_end = time.time()
         self.__debug("Executed instruction in " + (time_end - time_start).__str__() + " seconds: " + instruction.__str__())
