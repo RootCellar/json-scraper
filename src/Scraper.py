@@ -30,6 +30,8 @@ class Scraper(object):
         self.instructions = []
         self.current_element = None
         self.data = dict()
+        self.functions = dict()
+        self.function_writing = None
         self.live_mode = False
         self.webdriver = None
 
@@ -108,12 +110,31 @@ class Scraper(object):
     def get_data(self):
         return self.data
 
+    def create_function(self, param):
+        self.functions[param] = []
+        self.function_writing = param
+
+        self.__debug("Now writing function " + self.function_writing)
+
+    def end_function(self):
+        if self.function_writing is not None:
+            self.__debug("Ending function " + self.function_writing)
+        self.function_writing = None
+
     def handle_instruction(self, param):
         self.__debug("Handling instruction \"" + param.__str__() + "\"")
-        if not self.live_mode:
-            self.instructions.append(param)
-        else:
+
+        if self.function_writing is not None:
+            self.functions[self.function_writing].append(param)
+        elif self.live_mode:
             self.execute_instruction(param)
+        else:
+            self.instructions.append(param)
+
+
+    def then_run_function(self, param):
+        instruction = [ScraperInstructionType.run_function, param]
+        self.handle_instruction(instruction)
 
     def then_skip_to_class(self, param):
         instruction = [ScraperInstructionType.skip_to_class, param]
@@ -229,3 +250,11 @@ class Scraper(object):
 
         if instruction[0] is ScraperInstructionType.scrape_table:
             self.scrape_table(instruction[1])
+
+        if instruction[0] is ScraperInstructionType.run_function:
+            instructions = self.functions[instruction[1]]
+            self.__debug("Running function " + instruction[1])
+            for instr in instructions:
+                self.__debug("Function " + instruction[1] + " executing " + instr.__str__())
+                self.execute_instruction(instr)
+
