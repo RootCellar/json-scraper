@@ -15,3 +15,4 @@ class ScraperInstructionType(Enum):
     click_element = 7
     goto_previous_page = 8
     scrape_table = 9
+    run_function = 10
