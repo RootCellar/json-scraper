@@ -76,6 +76,20 @@ def setup_scraper(scraper):
 
     scraper.then_go_back_to_beginning()
 
+    scraper.then_skip_to_element_with_attribute("a", "title", "Source Water Assessment Summary")
+    scraper.then_click_element()
+
+    scraper.create_function("scrape_water_assessments")
+    scraper.then_save_attribute_as_property("innerText", "name")
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("Susceptibility")
+    scraper.then_skip_to_element("table")
+    scraper.then_scrape_table("contaminant_vulnerability")
+    scraper.end_function()
+
+    scraper.then_for_each("h3", "class", "block-title-dark", "scrape_water_assessments")
+    scraper.then_go_back()
+
 def setup_crawler(crawler):
 
     # The element that holds all of the item elements we really want
