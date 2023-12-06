@@ -207,6 +207,13 @@ class Scraper(object):
 
         return self.data
 
+    def execute_function(self, name):
+        instructions = self.functions[name]
+        self.__debug("Running function " + name)
+        for instr in instructions:
+            self.__debug("Function " + name + " executing " + instr.__str__())
+            self.execute_instruction(instr)
+
     def execute_instruction(self, instruction):
         self.__debug("Running instruction: " + instruction.__str__())
 
@@ -254,11 +261,7 @@ class Scraper(object):
             self.scrape_table(instruction[1])
 
         if instruction[0] is ScraperInstructionType.run_function:
-            instructions = self.functions[instruction[1]]
-            self.__debug("Running function " + instruction[1])
-            for instr in instructions:
-                self.__debug("Function " + instruction[1] + " executing " + instr.__str__())
-                self.execute_instruction(instr)
+            self.execute_function(instruction)
 
         time_end = time.time()
         self.__debug("Executed instruction in " + (time_end - time_start).__str__() + " seconds: " + instruction.__str__())
