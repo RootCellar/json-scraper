@@ -127,6 +127,10 @@ class Scraper(object):
         instruction = [ScraperInstructionType.save_value_as_property, param]
         self.handle_instruction(instruction)
 
+    def then_save_attribute_as_property(self, tag, param):
+        instruction = [ScraperInstructionType.save_attribute_as_property, tag, param]
+        self.handle_instruction(instruction)
+
     def then_go_back_to_beginning(self):
         instruction = [ScraperInstructionType.back_to_beginning]
         self.handle_instruction(instruction)
@@ -193,6 +197,9 @@ class Scraper(object):
 
         if instruction[0] is ScraperInstructionType.save_value_as_property:
             self.data[instruction[1]] = self.current_element.get_attribute('innerText')
+
+        if instruction[0] is ScraperInstructionType.save_attribute_as_property:
+            self.data[instruction[2]] = self.current_element.get_attribute(instruction[1])
 
         if instruction[0] is ScraperInstructionType.back_to_beginning:
             self.back_to_beginning()
