@@ -65,8 +65,14 @@ def setup_scraper(scraper):
     scraper.then_scrape_table("sample_results")
     scraper.then_go_back()
 
+    scraper.create_function("save_monitoring_link")
+
     scraper.then_skip_to_element_with_attribute("a", "title", "Current Monitoring Summary")
     scraper.then_save_attribute_as_property("href", "monitoring_link")
+
+    scraper.end_function()
+
+    scraper.then_run_function("save_monitoring_link")
 
     scraper.then_go_back_to_beginning()
 
